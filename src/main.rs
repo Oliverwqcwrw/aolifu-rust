@@ -1,10 +1,19 @@
 use std::cmp::Ordering;
 use std::io;
 use rand::Rng;
+use aolifu_rust::collection;
+use aolifu_rust::collection::vector;
+use aolifu_rust::string;
 
 const TEST_CONSTANT: u32 = 100_000;
 
 fn main() {
+    string::split_string();
+
+    string::traverse_string();
+
+    vector::test_vector();
+
     override_variable();
 
     different_type_variable();
@@ -24,7 +33,7 @@ fn main() {
 
     string_append();
 
-    string_move();
+    string::string_move();
 
     string_deep_clone();
 
@@ -32,10 +41,63 @@ fn main() {
 
     slice_one();
 
-    guess_number();
+    new_user();
+
+    cal_area();
+
+    rec_is_hold();
+
+    related_func();
+
+    cal_coin_value();
+
+    match_one_test();
+
+    some_one();
+
+    if_let_one();
 
     println!("constant value is {}", TEST_CONSTANT);
 }
+
+struct User {
+    username:String,
+    email:String,
+    sing_in_count:u64,
+    active:bool,
+}
+
+#[derive(Debug)]
+struct Rectangle {
+    width:u32,
+    high:u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.high
+    }
+
+    fn is_hold(&self, other: &Rectangle) -> bool {
+        return self.width > other.width && self.high > other.high;
+    }
+
+    // related function
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            high: size,
+        }
+    }
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
 
 fn guess_number() {
     println!("guess number");
@@ -129,12 +191,6 @@ fn string_append() {
     println!("{}", s);
 }
 
-fn string_move() {
-    let s1  = String::from("Hello");
-    let s2 = s1;
-    println!("s2: {}", s2);
-}
-
 fn string_deep_clone() {
     let s1 = String::from("Hello2");
     let s2 =s1.clone();
@@ -165,3 +221,98 @@ fn slice_one() {
     let whole = &s[..];
     println!("{}", whole);
 }
+
+fn new_user() {
+    let mut  user = User {
+        email: String::from("11@qq.com"),
+        username: String::from("oliver"),
+        sing_in_count: 123,
+        active: true,
+    };
+    user.active = false;
+    println!("{}", user.active);
+
+    let user2 = User {
+        email: String::from("22@qq.com"),
+        username: String::from("bob"),
+        ..user
+    };
+    println!("{},{},{},{}", user2.email, user2.username, user2.sing_in_count, user2.active)
+}
+
+fn cal_area() {
+    let rec = Rectangle {
+        width: 30,
+        high: 50,
+    };
+    let area = rec.area();
+    println!("area: {}", area);
+    println!("rec: {:#?}", rec);
+}
+
+fn rec_is_hold() {
+    let rect = Rectangle {
+        width: 50,
+        high: 50,
+    };
+    let rect2 = Rectangle {
+        width: 20,
+        high: 20,
+    };
+    let flag = rect.is_hold(&rect2);
+    println!("{}", flag)
+}
+
+fn related_func() {
+    let rec = Rectangle::square(20);
+    println!("{:#?}", rec);
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
+}
+
+fn cal_coin_value() {
+    let quarter = Coin::Quarter;
+    let quarter_value = value_in_cents(quarter);
+    println!("quarter value is {}", quarter_value);
+}
+
+fn match_one(v: u8) {
+    match v {
+        1 => println!("one"),
+        3 => println!("three"),
+        5 => println!("five"),
+        7 => println!("seven"),
+        _ => (),
+    }
+}
+
+fn match_one_test() {
+    let v = 1u8;
+    match_one(v);
+}
+
+fn some_one() {
+    let v = Some(0u8);
+    match v {
+        Some(3) => println!("three"),
+        Some(5) => println!("five"),
+        Some(7) => println!("seven"),
+        Some(9) => println!("nine"),
+        _ => (),
+    }
+}
+
+fn if_let_one() {
+    let v = Some(0u8);
+    if let Some(3) = v {
+        println!("{}", v.iter().len());
+    }
+}
+
