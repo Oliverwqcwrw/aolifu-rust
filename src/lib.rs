@@ -19,3 +19,5 @@ pub fn eat_at_restaurant() {
 
 pub mod collection;
 pub mod string;
+pub mod panic;
+pub mod guess_number;
