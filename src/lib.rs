@@ -1,3 +1,5 @@
+extern crate core;
+
 mod front_of_house {
     pub mod hosting {
         pub fn add_to_waitlist(){}
@@ -25,3 +27,5 @@ pub mod function;
 pub mod generic;
 pub mod trait_mod;
 pub mod lifecycle;
+#[cfg(test)]
+pub mod test;

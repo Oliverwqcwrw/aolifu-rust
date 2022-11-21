@@ -1,4 +1,3 @@
-use std::arch::x86_64::_bittest;
 
 pub fn largest(list: &[i32]) -> i32 {
     let mut largest = list[0];
