@@ -5,17 +5,14 @@ use aolifu_rust::collection;
 use aolifu_rust::collection::vector;
 use aolifu_rust::string;
 use aolifu_rust::panic;
+use aolifu_rust::function;
+use aolifu_rust::generic;
+use aolifu_rust::trait_mod;
 
 const TEST_CONSTANT: u32 = 100_000;
 
 fn main() {
-    panic::open_file;
-
-    string::split_string();
-
-    string::traverse_string();
-
-    vector::test_vector();
+    function::cal_largest();
 
     override_variable();
 
@@ -58,7 +55,9 @@ fn main() {
 
     some_one();
 
-    if_let_one();
+    generic::mixup_color();
+
+    trait_mod::send_tweet();
 
     println!("constant value is {}", TEST_CONSTANT);
 }
