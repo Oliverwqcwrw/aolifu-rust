@@ -8,58 +8,16 @@ use aolifu_rust::panic;
 use aolifu_rust::function;
 use aolifu_rust::generic;
 use aolifu_rust::trait_mod;
+use aolifu_rust::command;
 
 const TEST_CONSTANT: u32 = 100_000;
 
 fn main() {
-    function::cal_largest();
-
-    override_variable();
-
-    different_type_variable();
-
-    tuple();
-
-    array();
-
-    let result = plus_num(6);
-    println!("result value is {}", result);
-
-    loop_one();
-
-    while_one();
-
-    array_reverse();
-
-    string_append();
-
-    string::string_move();
-
-    string_deep_clone();
-
-    for_one();
-
-    slice_one();
-
-    new_user();
-
-    cal_area();
+    command::read_command_line_arg();
 
     rec_is_hold();
 
     related_func();
-
-    cal_coin_value();
-
-    match_one_test();
-
-    some_one();
-
-    generic::mixup_color();
-
-    trait_mod::send_tweet();
-
-    println!("constant value is {}", TEST_CONSTANT);
 }
 
 struct User {
@@ -159,18 +117,6 @@ fn array_reverse() {
         println!("{}!", number);
     }
     println!("LIST OFF!");
-}
-
-fn string_append() {
-    let mut  s = String::from("Hello");
-    s.push_str(", World");
-    println!("{}", s);
-}
-
-fn string_deep_clone() {
-    let s1 = String::from("Hello2");
-    let s2 =s1.clone();
-    println!("s1: {}, s2: {}", s1, s2);
 }
 
 fn for_one() {
@@ -285,6 +231,7 @@ fn some_one() {
     }
 }
 
+// replace one match
 fn if_let_one() {
     let v = Some(0u8);
     if let Some(3) = v {

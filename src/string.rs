@@ -47,3 +47,15 @@ pub fn split_string() {
     let s = &hello[0..4];
     println!("s value is {}", s);
 }
+
+fn string_append() {
+    let mut  s = String::from("Hello");
+    s.push_str(", World");
+    println!("{}", s);
+}
+
+fn string_deep_clone() {
+    let s1 = String::from("Hello2");
+    let s2 =s1.clone();
+    println!("s1: {}, s2: {}", s1, s2);
+}

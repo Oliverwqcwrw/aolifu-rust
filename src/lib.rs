@@ -20,12 +20,26 @@ pub fn eat_at_restaurant() {
 }
 
 pub mod collection;
+
 pub mod string;
+
 pub mod panic;
+
 pub mod guess_number;
+
 pub mod function;
+
 pub mod generic;
+
 pub mod trait_mod;
+
 pub mod lifecycle;
+
 #[cfg(test)]
 pub mod test;
+
+pub mod command;
+
+pub mod closure;
+
+pub mod iterator;
