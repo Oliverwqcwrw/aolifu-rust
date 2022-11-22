@@ -2,7 +2,7 @@ use std::cmp::Ordering;
 use std::io;
 use rand::Rng;
 use aolifu_rust::collection;
-use aolifu_rust::collection::vector;
+use aolifu_rust::test_vector;
 use aolifu_rust::string;
 use aolifu_rust::panic;
 use aolifu_rust::function;
@@ -13,6 +13,9 @@ use aolifu_rust::command;
 const TEST_CONSTANT: u32 = 100_000;
 
 fn main() {
+
+    test_vector();
+
     command::read_command_line_arg();
 
     rec_is_hold();

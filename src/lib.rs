@@ -43,3 +43,5 @@ pub mod command;
 pub mod closure;
 
 pub mod iterator;
+
+pub use self::collection::vector::test_vector;
