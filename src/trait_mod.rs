@@ -108,3 +108,25 @@ impl <T: Display + PartialOrd> Pair<T> {
         }
     }
 }
+
+struct CustomSmartPointer {
+    data: String,
+}
+
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPointer with data {}", self.data)
+    }
+}
+
+#[test]
+fn drop_trait_test() {
+    let c1 = CustomSmartPointer {
+        data: String::from("my stuff"),
+    };
+    let c2 = CustomSmartPointer {
+        data: String::from("other stuff"),
+    };
+    drop(c1);
+    println!("CustomSmartPointer created")
+}

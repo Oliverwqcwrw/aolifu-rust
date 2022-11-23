@@ -45,3 +45,11 @@ pub mod closure;
 pub mod iterator;
 
 pub use self::collection::vector::test_vector;
+
+pub mod box_mod;
+
+pub mod dereference;
+
+pub mod reference_count;
+
+pub mod multiple_thread;
