@@ -1,4 +1,3 @@
-use std::arch::x86_64::_bittest;
 use std::fmt::{Debug, Display};
 use std::iter::Sum;
 
@@ -130,3 +129,78 @@ fn drop_trait_test() {
     drop(c1);
     println!("CustomSmartPointer created")
 }
+
+pub trait Draw {
+    fn draw(&self);
+}
+
+pub struct Screen {
+    pub components: Vec<Box<dyn Draw>>,
+}
+
+impl Screen {
+    fn run(&self) {
+        for component in self.components.iter() {
+            component.draw();
+        }
+    }
+}
+
+pub struct Button{
+    pub width: u32,
+    pub height: u32,
+    pub label: String,
+}
+
+impl Draw for Button{
+    fn draw(&self) {
+        println!("Button draw");
+    }
+}
+
+struct SelectBox{
+    width: u32,
+    height: u32,
+    options: Vec<String>,
+}
+
+impl Draw for SelectBox {
+    fn draw(&self) {
+        println!("SelectBox draw");
+    }
+}
+
+fn draw_test() {
+    let screen = Screen {
+        components: vec![
+            Box::new(SelectBox {
+                width: 10,
+                height: 10,
+                options: vec![String::from("Yes"),String::from("Maybe"),String::from("No")],
+            }),
+            Box::new(Button {
+                width: 10,
+                height: 10,
+                label: String::from("OK"),
+            }),
+        ]
+    };
+    screen.run();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

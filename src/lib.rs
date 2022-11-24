@@ -53,3 +53,7 @@ pub mod dereference;
 pub mod reference_count;
 
 pub mod multiple_thread;
+
+pub mod pattern_match;
+
+pub mod unsafe_rust;
