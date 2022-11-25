@@ -1,5 +1,7 @@
-use std::fmt::{Debug, Display};
+use std::fmt;
+use std::fmt::{Debug, Display, Formatter};
 use std::iter::Sum;
+use std::ops::Add;
 
 pub trait Summary {
     fn summarize(&self) -> String;
@@ -186,15 +188,163 @@ fn draw_test() {
         ]
     };
     screen.run();
+}
+
+// associated type
+pub trait Iterator{
+    type Item;
+    fn next(&mut self) -> Option<Self::Item>;
+}
+
+pub trait Iterator2<T> {
+    fn next(&mut self) -> Option<T>;
+}
+
+struct Counter{
 
 }
 
+// An associated type can only be implemented once
+impl Iterator for Counter{
+    type Item = u32;
+    fn next(&mut self) -> Option<Self::Item> {
+        None
+    }
+}
 
+impl Iterator2<String> for Counter {
+    fn next(&mut self) -> Option<String> {
+        None
+    }
+}
 
+impl Iterator2<u32> for Counter {
+    fn next(&mut self) -> Option<u32> {
+        None
+    }
+}
 
+#[derive(Debug,PartialEq)]
+struct Point{
+    x:i32,
+    y:i32,
+}
 
+impl Add for Point {
+    type Output = Point;
+    fn add(self,other: Point) -> Point {
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
 
+struct Millimeters(u32);
+struct Meters(u32);
 
+impl Add<Meters> for Millimeters {
+    type Output = Millimeters;
+    fn add(self, other: Meters) -> Millimeters {
+        Millimeters(self.0 + (other.0 * 1000))
+    }
+}
+
+trait Pilot{
+    fn fly(&self);
+}
+
+trait Wizard{
+    fn fly(&self);
+}
+
+struct Human;
+
+impl Pilot for Human{
+    fn fly(&self) {
+        println!("This is your captain speaking");
+    }
+}
+
+impl Wizard for Human {
+    fn fly(&self) {
+        println!("Up!");
+    }
+}
+
+impl Human {
+    fn fly(&self) {
+        println!("waving arms furiously");
+    }
+}
+
+#[test]
+fn same_name_test() {
+    let person = Human{};
+    person.fly();
+    Pilot::fly(&person);
+    Wizard::fly(&person);
+}
+
+trait Animal {
+    fn baby_name() -> String;
+}
+
+struct Dog;
+
+impl Dog {
+    fn baby_name() -> String {
+        String::from("Spot")
+    }
+}
+
+impl Animal for Dog {
+    fn baby_name() -> String {
+        String::from("puppy")
+    }
+}
+
+#[test]
+fn full_qualified_syntax() {
+    println!("a baby dog is called a {}", Dog::baby_name());
+    println!("a baby dog is called a {}", <Dog as Animal>::baby_name())
+}
+
+//super trait
+
+trait OutlinePrint: fmt::Display{
+    fn outline_print(&self) {
+        let output = self.to_string();
+        let len = output.len();
+        println!("{}","*".repeat(len + 4))
+    }
+}
+
+impl Display for Point {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f,"{} {}",self.x,self.y)
+    }
+}
+
+impl OutlinePrint for Point{
+
+}
+
+//Use newt ype to implement an external trait on an external type
+
+struct Wrapper(Vec<String>);
+
+impl fmt::Display for Wrapper {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f,"[{}]",self.0.join(", "))
+    }
+}
+
+#[test]
+fn external_trait_test() {
+    let w = Wrapper(vec![String::from("hello"),String::from("world")]);
+    println!("w = {}", w);
+}
 
 
 

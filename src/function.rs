@@ -137,8 +137,47 @@ fn post_test() {
     assert_eq!("I ate a salad for launch today", post.content)
 }
 
+// type alias
 
+type Kilometers = i32;
 
+#[test]
+fn type_alias_test() {
+    let x:i32 = 5;
+    let y:Kilometers = 10;
+    println!("x + y = {}",x + y);
+}
+
+// function pointer
+
+fn add_one(x:i32) -> i32 {
+    x + 1
+}
+
+fn do_twice(f: fn(i32) -> i32, arg: i32) -> i32 {
+    f(arg) + f(arg)
+}
+
+#[test]
+fn function_pointer_test() {
+    let answer = do_twice(add_one, 5);
+    println!("answer is {}", answer);
+}
+
+fn function_pointer_test_two() {
+    let list_of_numbers = vec![1,2,3];
+    let list_of_strings: Vec<String> = list_of_numbers
+        .iter()
+        .map(|i| i.to_string())
+        .collect();
+
+    let list_of_numbers = vec![1,2,3];
+    let list_of_strings: Vec<String> = list_of_numbers.iter().map(ToString::to_string).collect();
+}
+
+fn return_closure() -> Box<dyn Fn(i32) -> i32> {
+    Box::new(|x| x + 1)
+}
 
 
 

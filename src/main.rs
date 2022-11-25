@@ -9,18 +9,13 @@ use aolifu_rust::function;
 use aolifu_rust::generic;
 use aolifu_rust::trait_mod;
 use aolifu_rust::command;
+use aolifu_rust::web_server;
 
 const TEST_CONSTANT: u32 = 100_000;
 
 fn main() {
 
-    test_vector();
-
-    command::read_command_line_arg();
-
-    rec_is_hold();
-
-    related_func();
+   web_server::server();
 }
 
 struct User {

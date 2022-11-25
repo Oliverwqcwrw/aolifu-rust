@@ -57,3 +57,7 @@ pub mod multiple_thread;
 pub mod pattern_match;
 
 pub mod unsafe_rust;
+
+pub mod macro_command;
+
+pub mod web_server;
