@@ -3,7 +3,7 @@ use std::io;
 use std::io::{ErrorKind, Read};
 
 pub fn open_file() {
-    let f = File::open("hello.txt");
+    let f = File::open("../static/hello.txt");
 
     let f = match f {
         Ok(file) => file,
@@ -14,11 +14,11 @@ pub fn open_file() {
 }
 
 pub fn open_file_two() {
-    let f = File::open("hello.txt");
+    let f = File::open("static/hello.txt");
     let f = match f {
         Ok(file) => file,
         Err(error) => match error.kind() {
-            ErrorKind::NotFound => match File::create("hello.txt") {
+            ErrorKind::NotFound => match File::create("static/hello.txt") {
                 Ok(file) => file,
                 Err(error) => panic!("Error create file: {:?}", error)
             },
@@ -29,10 +29,10 @@ pub fn open_file_two() {
 }
 
 pub fn open_file_three() {
-    let f = File::open("hello.txt").unwrap_or_else(
+    let f = File::open("static/hello.txt").unwrap_or_else(
         |error| {
             if error.kind() == ErrorKind::NotFound {
-                File::create("hello.txt").unwrap_or_else(
+                File::create("static/hello.txt").unwrap_or_else(
                     |error| {
                         panic!("error create file {:?}", error);
                     }
@@ -45,7 +45,7 @@ pub fn open_file_three() {
 }
 
 pub fn spread_error() -> Result<String, io::Error> {
-    let f = File::open("hello.txt");
+    let f = File::open("static/hello.txt");
     let mut f = match f {
         Ok(file) => file,
         Err(e) => return Err(e),
@@ -60,7 +60,7 @@ pub fn spread_error() -> Result<String, io::Error> {
 }
 
 pub fn spread_error_two() -> Result<String, io::Error> {
-    let mut f = File::open("hello.txt")?;
+    let mut f = File::open("static/hello.txt")?;
     let mut s = String::new();
     f.read_to_string(&mut s)?;
     Ok(s)
@@ -68,6 +68,6 @@ pub fn spread_error_two() -> Result<String, io::Error> {
 
 pub fn spread_error_three() -> Result<String, io::Error> {
     let mut s = String::new();
-    File::open("hello.txt")?.read_to_string(&mut s)?;
+    File::open("../static/hello.txt")?.read_to_string(&mut s)?;
     Ok(s)
 }
